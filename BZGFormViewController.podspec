@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'BZGFormViewController'
-  s.version  = '2.4.4'
+  s.version  = '2.4.5'
   s.license  = 'MIT'
   s.summary  = 'A library for creating dynamic forms.'
   s.homepage = 'https://github.com/benzguo/BZGFormViewController'
@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   }
   s.dependency 'ReactiveCocoa', '~>2.0'
   s.dependency 'libextobjc', '~>0.4'
-  s.dependency 'libPhoneNumber-iOS'
+  s.dependency 'libPhoneNumber-iOS', '~>0.7.6'
   s.requires_arc = true
-  s.platform = :ios, '5.0'
+  s.platform = :ios, '7.0'
   s.source_files = 'BZGFormViewController/*.{h,m}'
 end
