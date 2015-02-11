@@ -51,4 +51,10 @@
  */
 + (BZGTextViewCell *)parentCellForTextView:(UITextView *)textView;
 
+// Handle UITextViewTextDidChangeNotification
+- (void)textViewTextDidChange:(NSNotification *)notification;
+
+// Character limit
+@property (assign, nonatomic) NSUInteger characterLimit;
+
 @end
