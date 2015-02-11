@@ -12,6 +12,9 @@
 @property (strong, nonatomic) UILabel *label;
 @property (strong, nonatomic) UITextView *textView;
 
+// A Boolean value indicating whether the text field is currently in edit mode.
+@property (assign, nonatomic) BOOL editing;
+
 /// The color of the text field's text when the cell's state is not invalid.
 @property (strong, nonatomic) UIColor *textViewNormalColor;
 

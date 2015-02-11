@@ -12,11 +12,13 @@
 #import "Constants.h"
 
 @implementation BZGTextViewCell
+@synthesize editing;
 
 - (id)init
 {
     self = [super init];
     if (self) {
+        self.editing = NO;
         self.showsCheckmarkWhenValid = YES;
         self.showsValidationWhileEditing = NO;
         self.infoCell = [[BZGInfoCell alloc] init];
@@ -27,6 +29,10 @@
         [self configureTap];
         [self configureBindings];
 
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textViewTextDidBeginEditing:)
+                                                     name:UITextViewTextDidBeginEditingNotification
+                                                   object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(textViewTextDidEndEditing:)
                                                      name:UITextViewTextDidEndEditingNotification
@@ -63,6 +69,7 @@
     self.textViewInvalidColor = BZG_TEXTFIELD_INVALID_COLOR;
     self.textView.font = BZG_TEXTFIELD_FONT;
     self.textView.backgroundColor = [UIColor clearColor];
+    self.textView.editable = YES;
     [self addSubview:self.textView];
 }
 
@@ -109,7 +116,7 @@
     RAC(self.textView, textColor) =
     [RACObserve(self, validationState) map:^UIColor *(NSNumber *validationState) {
         @strongify(self);
-        if (self.textView.editing &&
+        if (self.editing &&
             !self.showsValidationWhileEditing) {
             return self.textViewNormalColor;
         }
@@ -143,7 +150,7 @@
     [RACObserve(self, validationState) map:^NSNumber *(NSNumber *validationState) {
         @strongify(self);
         if (validationState.integerValue == BZGValidationStateValid &&
-            (!self.textView.editing || self.showsValidationWhileEditing) &&
+            (!self.editing || self.showsValidationWhileEditing) &&
             self.showsCheckmarkWhenValid) {
             return @(UITableViewCellAccessoryCheckmark);
         } else {
@@ -169,6 +176,12 @@
 }
 
 #pragma mark - UITextView notification selectors
+
+- (void)textViewTextDidBeginEditing:(NSNotification *)notification
+{
+    self.editing = YES;
+}
+
 // I'm using these notifications to flush the validation state signal.
 // It works, but seems hacky. Is there a better way?
 
@@ -182,15 +195,14 @@
         // If it seems like the text field has been cleared,
         // invoke the text change delegate method again to ensure proper validation.
         if (textView.secureTextEntry && textView.text.length <= 1) {
-            [self.textView.delegate textView:self.textView
-                 shouldChangeCharactersInRange:NSMakeRange(0, textView.text.length)
-                             replacementString:textView.text];
+            [self.textView.delegate textView:self.textView shouldChangeTextInRange:NSMakeRange(0, textView.text.length) replacementText:textView.text];
         }
     }
 }
 
 - (void)textViewTextDidEndEditing:(NSNotification *)notification
 {
+    self.editing = NO;
     UITextView *textView = (UITextView *)notification.object;
     if ([textView isEqual:self.textView]) {
         self.validationState = self.validationState;
