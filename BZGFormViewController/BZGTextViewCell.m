@@ -198,6 +198,10 @@
             [self.textView.delegate textView:self.textView shouldChangeTextInRange:NSMakeRange(0, textView.text.length) replacementText:textView.text];
         }
     }
+    
+    if (self.didChangeBlock) {
+        self.didChangeBlock(self);
+    }
 }
 
 - (void)textViewTextDidEndEditing:(NSNotification *)notification

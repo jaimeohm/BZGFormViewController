@@ -188,6 +188,10 @@
                              replacementString:textField.text];
         }
     }
+    
+    if (self.didChangeBlock) {
+        self.didChangeBlock(self);
+    }
 }
 
 - (void)textFieldTextDidEndEditing:(NSNotification *)notification

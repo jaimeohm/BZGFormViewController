@@ -44,6 +44,12 @@
 /// The block called before the text field returns. Return NO if the text field shouldn't return.
 @property (copy, nonatomic) BOOL (^shouldReturnBlock)(BZGTextViewCell *cell, NSString *text);
 
+/// The block called when the text view's content changes.
+@property (copy, nonatomic) void (^didChangeBlock)(BZGTextViewCell *cell);
+
+/// The block called when the text view's selection changes.
+@property (copy, nonatomic) void (^didChangeSelection)(BZGTextViewCell *cell);
+
 /**
  * Returns the parent BZGTextViewCell for the given text field. If no cell is found, returns nil.
  *

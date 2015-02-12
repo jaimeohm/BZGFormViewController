@@ -288,21 +288,6 @@
         shouldChange = cell.shouldChangeTextBlock(cell, newText);
     }
     
-    if (cell.characterLimit > 0) {
-        if([text length] == 0)
-        {
-            if([textView.text length] != 0)
-            {
-                shouldChange = shouldChange && YES;
-            }
-        }
-        else if([[textView text] length] >= cell.characterLimit)
-        {
-            shouldChange = NO;
-        }
-        shouldChange = shouldChange && YES;
-    }
-    
     [self updateInfoCellBelowFormCell:cell];
     return shouldChange;
 }
@@ -318,6 +303,16 @@
     }
     
     [self updateInfoCellBelowFormCell:cell];
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    BZGTextViewCell *cell = [BZGTextViewCell parentCellForTextView:textView];
+    if (!cell) {
+        return;
+    }
+    if (cell.didChangeSelection) {
+        cell.didChangeSelection(cell);
+    }
 }
 
 #pragma mark - UITextFieldDelegate
