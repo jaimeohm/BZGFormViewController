@@ -249,6 +249,21 @@
 }
 
 #pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    BZGTextViewCell *cell = [BZGTextViewCell parentCellForTextView:textView];
+    if (!cell) {
+        return NO;
+    }
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    if (self.showsKeyboardControl) {
+        [self accesorizeTextView:textView];
+    }
+    return YES;
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     BZGTextViewCell *cell = [BZGTextViewCell parentCellForTextView:textView];
@@ -257,12 +272,6 @@
     }
     if (cell.didBeginEditingBlock) {
         cell.didBeginEditingBlock(cell, textView.text);
-    }
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    if (self.showsKeyboardControl) {
-        [self accesorizeTextView:textView];
     }
 }
 
@@ -313,6 +322,21 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    BZGTextFieldCell *cell = [BZGTextFieldCell parentCellForTextField:textField];
+    if (!cell) {
+        return NO;
+    }
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    if (self.showsKeyboardControl) {
+        [self accesorizeTextField:textField];
+    }
+    return YES;
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     BZGTextFieldCell *cell = [BZGTextFieldCell parentCellForTextField:textField];
@@ -323,11 +347,6 @@
         cell.didBeginEditingBlock(cell, textField.text);
     }
 
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    if (self.showsKeyboardControl) {
-        [self accesorizeTextField:textField];
-    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -548,6 +567,9 @@
         
         if ([cell isKindOfClass:[BZGTextFieldCell class]]) {
             ((BZGTextFieldCell *)cell).textField.delegate = self;
+        }
+        if ([cell isKindOfClass:[BZGTextViewCell class]]) {
+            ((BZGTextViewCell *)cell).textView.delegate = self;
         }
     } else if (![cell isKindOfClass:[BZGInfoCell class]]) {
         [NSException raise:NSInternalInconsistencyException

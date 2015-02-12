@@ -10,7 +10,7 @@
 
 @class BZGInfoCell, BZGTextFieldCell, BZGPhoneTextFieldCell;
 
-@interface BZGFormViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, BZGFormCellDelegate>
+@interface BZGFormViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, BZGFormCellDelegate>
 
 /// The table view managed by the controller object.
 @property (nonatomic, strong) UITableView *tableView;
@@ -47,7 +47,7 @@
  *
  * @param cell an instance of BZGTextFieldCell in a BZGFormViewController's form cells
  */
-- (void)updateInfoCellBelowFormCell:(BZGTextFieldCell *)cell;
+- (void)updateInfoCellBelowFormCell:(BZGFormCell *)cell;
 
 /**
  * Returns the next form cell.
@@ -55,7 +55,7 @@
  * @param cell The starting form field cell.
  * @return The next form field cell or nil if no cell is found.
  */
-- (BZGTextFieldCell *)nextFormCell:(BZGTextFieldCell *)cell;
+- (BZGFormCell *)nextFormCell:(BZGFormCell *)cell;
 
 /**
  * Returns the previous form cell.
@@ -63,7 +63,7 @@
  * @param cell The starting form field cell.
  * @return The previous form field cell or nil if no cell is found.
  */
-- (BZGTextFieldCell *)previousFormCell:(BZGTextFieldCell *)cell;    
+- (BZGFormCell *)previousFormCell:(BZGFormCell *)cell;
 
 
 /**
@@ -71,21 +71,21 @@
  *
  * @param destinationCell The destination cell.
  */
-- (void)navigateToDestinationCell:(BZGTextFieldCell *)destinationCell;
+- (void)navigateToDestinationCell:(BZGFormCell *)destinationCell;
 
 /**
  * Returns the first invalid form field cell.
  *
  * @return The first form field cell with state 'BZGValidationStateInvalid' or nil if no cell is found.
  */
-- (BZGTextFieldCell *)firstInvalidFormCell;
+- (BZGFormCell *)firstInvalidFormCell;
 
 /**
  * Returns the first warning form field cell.
  *
  * @return The first form field cell with state 'BZGValidationStateWarning' or nil if no cell is found.
  */
-- (BZGTextFieldCell *)firstWarningFormCell;
+- (BZGFormCell *)firstWarningFormCell;
 
 /**
  * Returns a two-dimensional array of all of the cells, ordered by section and row.
