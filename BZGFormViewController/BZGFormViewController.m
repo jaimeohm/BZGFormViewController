@@ -17,7 +17,6 @@
 @interface BZGFormViewController ()
 
 @property (nonatomic, assign) UITableViewStyle style;
-@property (nonatomic, assign) BOOL isValid;
 @property (nonatomic, strong) BZGKeyboardControl *keyboardControl;
 @property (nonatomic, copy) void (^didEndScrollingBlock)();
 @property (nonatomic, strong) NSMutableArray *formCellsBySection;

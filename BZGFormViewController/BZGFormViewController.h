@@ -32,7 +32,7 @@
  * A form is valid when all of its formCells have validation state
  * BZGValidationStateValid or BZGValidationStateWarning.
  */
-@property (nonatomic, readonly) BOOL isValid;
+@property (assign, nonatomic) BOOL isValid;
 
 /**
  * Initializes a form view controller to manage a table view of a given style.
