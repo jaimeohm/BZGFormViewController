@@ -46,13 +46,13 @@ const CGFloat BZGKeyboardControlButtonSpacing = 22;
 }
 
 
-- (void)setPreviousCell:(BZGTextFieldCell *)previousCell {
+- (void)setPreviousCell:(BZGFormCell *)previousCell {
     _previousCell = previousCell;
     self.previousButton.enabled = !!previousCell;
 }
 
 
-- (void)setNextCell:(BZGTextFieldCell *)nextCell {
+- (void)setNextCell:(BZGFormCell *)nextCell {
     _nextCell = nextCell;
     self.nextButton.enabled = !!nextCell;
 }
