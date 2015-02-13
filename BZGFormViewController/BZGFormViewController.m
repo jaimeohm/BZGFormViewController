@@ -414,7 +414,7 @@
         if ([cell isKindOfClass:[BZGFormCell class]]) {
             isValid = isValid &&
             (cell.validationState == BZGValidationStateValid ||
-             cell.validationState == BZGValidationStateWarning);
+             cell.validationState == BZGValidationStateWarning || cell.validationState == BZGValidationStateNone);
         }
     }
     self.isValid = isValid;
