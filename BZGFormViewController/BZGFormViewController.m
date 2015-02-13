@@ -285,7 +285,7 @@
     
     NSString *newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
     if (cell.shouldChangeTextBlock) {
-        shouldChange = cell.shouldChangeTextBlock(cell, newText);
+        shouldChange = cell.shouldChangeTextBlock(cell, range, newText);
     }
     
     [self updateInfoCellBelowFormCell:cell];
@@ -361,7 +361,7 @@
 
     NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if (cell.shouldChangeTextBlock) {
-        shouldChange = cell.shouldChangeTextBlock(cell, newText);
+        shouldChange = cell.shouldChangeTextBlock(cell, range, newText);
     }
 
     [self updateInfoCellBelowFormCell:cell];

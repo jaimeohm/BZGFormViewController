@@ -36,7 +36,7 @@
  * The block called before the text field's text changes.
  * The block's newText parameter will be the text field's text after changing. Return NO if the text shouldn't change.
  */
-@property (copy, nonatomic) BOOL (^shouldChangeTextBlock)(BZGTextViewCell *cell, NSString *newText);
+@property (copy, nonatomic) BOOL (^shouldChangeTextBlock)(BZGTextViewCell *cell, NSRange range, NSString *newText);
 
 /// The block called when the text field's text ends editing.
 @property (copy, nonatomic) void (^didEndEditingBlock)(BZGTextViewCell *cell, NSString *text);
