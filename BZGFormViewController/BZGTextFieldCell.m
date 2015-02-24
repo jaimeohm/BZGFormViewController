@@ -209,6 +209,7 @@
 
 - (BOOL)resignFirstResponder
 {
+    [super resignFirstResponder];
     return [self.textField resignFirstResponder];
 }
 
